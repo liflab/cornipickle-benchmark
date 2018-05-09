@@ -1,0 +1,2 @@
+LI 1	For each $x in $(li) ($x's left equals 30).
+LI 2	For each $x in $(li) (For each $y in $(li) ($x's left equals $y's left)).

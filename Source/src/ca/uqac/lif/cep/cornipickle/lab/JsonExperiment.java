@@ -1,3 +1,20 @@
+/*
+  Cornipickle benchmark
+  Copyright (C) 2018 Sylvain Hallé and friends
+
+  This program is free software: you can redistribute it and/or modify
+  it under the terms of the GNU General Public License as published by
+  the Free Software Foundation, either version 3 of the License, or
+  (at your option) any later version.
+
+  This program is distributed in the hope that it will be useful,
+  but WITHOUT ANY WARRANTY; without even the implied warranty of
+  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+  GNU General Public License for more details.
+
+  You should have received a copy of the GNU General Public License
+  along with this program. If not, see <http://www.gnu.org/licenses/>.
+ */
 package ca.uqac.lif.cep.cornipickle.lab;
 
 import ca.uqac.lif.cornipickle.Interpreter;
@@ -11,10 +28,14 @@ public abstract class JsonExperiment extends Experiment
   
   public static final transient String TIME = "Time";
   
-  public JsonExperiment(Interpreter interpreter)
+  public static final transient String PROPERTY_NAME = "Property name";
+  
+  public JsonExperiment(String property_name, Interpreter interpreter)
   {
     super();
-    describe(TIME, "The duration of the experiment, in milliseconds");
+    describe(TIME, "The time taken to evaluate the property in milliseconds");
+    describe(PROPERTY_NAME, "The name of the property that is being evaluated");
+    setInput(PROPERTY_NAME, property_name);
     m_interpreter = interpreter;
   }
   
