@@ -148,6 +148,12 @@ public class MyLaboratory extends Laboratory
         experiments.add(e);
       }
       add(t);
+      String macro_title = "Time per element, property " + property_key;
+      if (ref_experiment instanceof BrowserExperiment)
+        macro_title += " (browser)";
+      else
+        macro_title += " (browser)";
+      add(new RegressionMacro(this, macro_title, t));
       Scatterplot sp = new Scatterplot(t);
       sp.setTitle(title);
       sp.setCaption(Axis.X, JsonLiExperiment.SIZE).setCaption(Axis.Y, JsonExperiment.TIME + " (ms)");

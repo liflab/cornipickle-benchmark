@@ -108,6 +108,17 @@
         <jar>https://github.com/SeleniumHQ/htmlunit-driver/releases/download/2.30.0/htmlunit-driver-2.30.0-jar-with-dependencies.jar</jar>
       </files>
     </dependency>
+    <dependency>
+      <!--
+      Commons Math.
+      -->
+      <name>Apache Commons Math</name>
+      <bundle>true</bundle>
+      <classname>org.apache.commons.math3.stat.regression.SimpleRegression</classname>
+      <files>
+        <zip>http://apache.mirror.gtcomm.net//commons/math/binaries/commons-math3-3.6.1-bin.zip</zip>
+      </files>
+    </dependency>
   </dependencies>
   
 </build>
