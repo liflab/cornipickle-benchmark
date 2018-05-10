@@ -17,47 +17,26 @@
  */
 package ca.uqac.lif.cep.cornipickle.lab;
 
-import ca.uqac.lif.cornipickle.CornipickleParser.ParseException;
-import ca.uqac.lif.cornipickle.Interpreter;
 import ca.uqac.lif.json.JsonElement;
 import ca.uqac.lif.json.JsonList;
 import ca.uqac.lif.json.JsonMap;
 
-public class LiExperiment extends JsonExperiment
+public class JsonLiExperiment extends JsonExperiment
 {
-  public static final transient String SIZE = "Size";
-  
-  @SuppressWarnings("unused")
-  private LiExperiment()
+  JsonLiExperiment()
   {
     this("", "", 0);
   }
   
-  public LiExperiment(String property_name, String property, int num_li)
+  public JsonLiExperiment(String property_name, String property, int num_li)
   {
-    super(property_name, getInterpreter(property));
+    super(property_name);
     setDescription("Evaluates the time required to evaluate an expression, in function of " 
         + "the size of the input document.");
-    describe(SIZE, "The size of the page (in number of elements)");
     setInput(SIZE, num_li);
+    setInput(PROPERTY, property);
   }
   
-  protected static Interpreter getInterpreter(String property)
-  {
-    Interpreter my_int = new Interpreter();
-    try
-    {
-      my_int.parseProperties(property);
-      return my_int;
-    }
-    catch (ParseException e)
-    {
-      // TODO Auto-generated catch block
-      e.printStackTrace();
-    }
-    return null;
-  }
-
   @Override
   public JsonElement getJson()
   {
@@ -80,4 +59,9 @@ public class LiExperiment extends JsonExperiment
     return map;
   }
 
+  @Override
+  public JsonLiExperiment newExperiment()
+  {
+    return new JsonLiExperiment();
+  }
 }

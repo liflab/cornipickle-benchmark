@@ -39,8 +39,8 @@ line:
 
 You should see something like this:
 
-    LabPal 2.8 - A versatile environment for running experiments
-    (C) 2014-2017 Laboratoire d'informatique formelle
+    LabPal 2.10 - A versatile environment for running experiments
+    (C) 2014-2018 Laboratoire d'informatique formelle
     Université du Québec à Chicoutimi, Canada
     Please visit http://localhost:21212/index to run this lab
     Hit Ctrl+C in this window to stop
@@ -76,6 +76,11 @@ this lab contains. Here is how you typically use the LabPal web interface.
 Please refer to the [LabPal website](https://liflab.github.io/labpal)
 or to the Help page within the web interface for more information about
 LabPal's functionalities.
+
+Tweaking the lab
+----------------
+
+TODO
 
 Disclaimer
 ----------

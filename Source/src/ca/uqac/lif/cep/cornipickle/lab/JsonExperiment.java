@@ -17,41 +17,50 @@
  */
 package ca.uqac.lif.cep.cornipickle.lab;
 
+import java.util.Collection;
+import java.util.Map;
+
+import ca.uqac.lif.cornipickle.CornipickleParser.ParseException;
 import ca.uqac.lif.cornipickle.Interpreter;
+import ca.uqac.lif.cornipickle.Verdict;
 import ca.uqac.lif.json.JsonElement;
-import ca.uqac.lif.labpal.Experiment;
 import ca.uqac.lif.labpal.ExperimentException;
 
-public abstract class JsonExperiment extends Experiment
+public abstract class JsonExperiment extends CornipickleExperiment
 {
-  protected transient Interpreter m_interpreter;
-  
-  public static final transient String TIME = "Time";
-  
-  public static final transient String PROPERTY_NAME = "Property name";
-  
-  public JsonExperiment(String property_name, Interpreter interpreter)
+  public JsonExperiment(String property_name)
   {
     super();
-    describe(TIME, "The time taken to evaluate the property in milliseconds");
-    describe(PROPERTY_NAME, "The name of the property that is being evaluated");
     setInput(PROPERTY_NAME, property_name);
-    m_interpreter = interpreter;
   }
   
   @Override
   public void execute() throws ExperimentException, InterruptedException
   {
-    if (m_interpreter == null)
+    Interpreter my_int = new Interpreter();
+    try
     {
-      throw new ExperimentException("Error parsing the property: the interpreter is null");
+      my_int.parseProperties(readString(PROPERTY));
+    }
+    catch (ParseException e)
+    {
+      throw new ExperimentException(e);
     }
     JsonElement je = getJson();
     long time_start = System.currentTimeMillis();
-    m_interpreter.evaluateAll(je);
+    my_int.evaluateAll(je);
+    Map<Interpreter.StatementMetadata,Verdict> verdicts = my_int.getVerdicts();
+    Collection<Verdict> values = verdicts.values();
+    if (values.isEmpty())
+    {
+      throw new ExperimentException("The interpreter returned an empty verdict.");
+    }
     long time_end = System.currentTimeMillis();
     write(TIME, time_end - time_start);
   }
 
   public abstract JsonElement getJson();
+  
+  @Override
+  public abstract JsonExperiment newExperiment();
 }

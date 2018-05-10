@@ -77,7 +77,7 @@
     </dependency>
     <dependency>
       <!--
-      Selenium Web Driver. Used for testing.
+      Selenium Web Driver
       -->
       <name>Selenium Web Driver</name>
       <bundle>true</bundle>
@@ -88,7 +88,7 @@
     </dependency>
     <dependency>
       <!--
-      Selenium Server. Used for testing.
+      Selenium Server
       -->
       <name>Selenium Server</name>
       <bundle>true</bundle>
@@ -97,5 +97,17 @@
         <jar>http://selenium-release.storage.googleapis.com/3.11/selenium-server-standalone-3.11.0.jar</jar>
       </files>
     </dependency>
+    <dependency>
+      <!--
+      HTMLUnit driver.
+      -->
+      <name>HtmlUnitDriver</name>
+      <bundle>true</bundle>
+      <classname>org.openqa.selenium.htmlunit.HtmlUnitDriver</classname>
+      <files>
+        <jar>https://github.com/SeleniumHQ/htmlunit-driver/releases/download/2.30.0/htmlunit-driver-2.30.0-jar-with-dependencies.jar</jar>
+      </files>
+    </dependency>
   </dependencies>
+  
 </build>
