@@ -133,7 +133,10 @@ public class MyLaboratory extends Laboratory
     {
       String property_key = ((JsonString) r_prop.get(CornipickleExperiment.PROPERTY)).stringValue();
       ExperimentTable t = new ExperimentTable(CornipickleExperiment.SIZE, CornipickleExperiment.TIME);
-      t.setTitle("Evaluation time vs. size; property " + property_key);
+      String title = "Interpreter time vs. size; property " + property_key;
+      if (ref_experiment instanceof BrowserExperiment)
+        title = "Browser time vs. size; property " + property_key;
+      t.setTitle(title);
       for (Region r : num_li.all(CornipickleExperiment.SIZE))
       {
         CornipickleExperiment e = ref_experiment.newExperiment();
@@ -146,7 +149,7 @@ public class MyLaboratory extends Laboratory
       }
       add(t);
       Scatterplot sp = new Scatterplot(t);
-      sp.setTitle("Evaluation time vs. size; property " + property_key);
+      sp.setTitle(title);
       sp.setCaption(Axis.X, JsonLiExperiment.SIZE).setCaption(Axis.Y, JsonExperiment.TIME + " (ms)");
       add(sp);
     }
