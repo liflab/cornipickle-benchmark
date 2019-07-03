@@ -42,21 +42,47 @@ public class JsonLiExperiment extends JsonExperiment
   {
     int id = 0;
     int size = readInt(SIZE);
-    JsonMap map = new JsonMap();
-    map.put("tagname", "window");
-    map.put("cornipickleid", id++);
-    JsonList children = new JsonList();
-    for (int i = 0; i < size; i++)
+    JsonMap window = new JsonMap();
+    window.put("tagname", "window");
+    window.put("cornipickleid", id++);
+    window.put("aspect-ratio", 1);
+    window.put("device-aspect-ratio", 1);
+    window.put("orientation", "landscape");
+    window.put("scroll-width", 500);
+    window.put("scroll-height", 500);
+    window.put("device-width", 500);
+    window.put("device-height", 500);
+    window.put("width", 500);
+    window.put("height", 500);
+    window.put("mediaqueries", new JsonList());
+    JsonList window_children = new JsonList();
     {
-      JsonMap child = new JsonMap();
-      map.put("tagname", "li");
-      map.put("cornipickleid", id++);
-      map.put("left", 30);
-      map.put("top", 30 * i);
-      children.add(child);
+      JsonMap body = new JsonMap();
+      body.put("tagname", "body");
+      body.put("cornipickleid", id++);
+      JsonList body_children = new JsonList();
+      {
+        JsonMap ul = new JsonMap();
+        JsonList ul_children = new JsonList();
+        ul.put("tagname", "ul");
+        ul.put("cornipickleid", id++);
+        for (int i = 0; i < size; i++)
+        {
+          JsonMap child = new JsonMap();
+          child.put("tagname", "li");
+          child.put("cornipickleid", id++);
+          child.put("left", 30);
+          child.put("top", 30 * i);
+          ul_children.add(child);
+        }
+        ul.put("children", ul_children);
+        body_children.add(ul);
+      }
+      body.put("children", body_children);
+      window_children.add(body);
     }
-    map.put("children", children);
-    return map;
+    window.put("children", window_children);
+    return window;
   }
 
   @Override

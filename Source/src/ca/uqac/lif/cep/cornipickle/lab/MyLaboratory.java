@@ -38,6 +38,11 @@ import ca.uqac.lif.mtnp.plot.gnuplot.Scatterplot;
 public class MyLaboratory extends Laboratory
 {
   /**
+   * OS-dependent line separator
+   */
+  protected static final String CRLF = System.getProperty("line.separator");
+  
+  /**
    * The port used by the Cornipickle servers
    */
   protected static final transient int SERVER_PORT = 10101;
@@ -81,6 +86,7 @@ public class MyLaboratory extends Laboratory
     eval_g.setDescription("Experiments that measure the time taken to evaluate various expressions on JSON snapshots.");
     add(eval_g);
     eval_g.add(populateExperiments(new JsonLiExperiment(), "data/properties/li.csv", new Region().addRange(CornipickleExperiment.SIZE, 0, m_maxSizeJson, m_incrementJson)));
+    eval_g.add(populateExperiments(new JsonDoubleLiExperiment(), "data/properties/temporal.csv", new Region().addRange(CornipickleExperiment.SIZE, 0, m_maxSizeJson, m_incrementJson)));
     
     // Browser experiments
     Group eval_b = new Group("Browser experiments");
@@ -119,6 +125,8 @@ public class MyLaboratory extends Laboratory
       if (line.isEmpty() || line.startsWith("#"))
         continue;
       String[] parts = line.split("\t");
+      // If the property is multi-line, make sure each statement is on a new line
+      parts[1] = parts[1].replace(". ", ".\n\n");
       properties.put(parts[0], parts[1]);
     }
     scanner.close();
