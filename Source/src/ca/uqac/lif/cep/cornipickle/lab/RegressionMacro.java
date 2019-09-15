@@ -41,11 +41,4 @@ public class RegressionMacro extends NumberMacro
     simple_regression.addData(vals);
     return simple_regression.getSlope();
   }
-
-  @Override
-  public String toLatex(boolean with_comments)
-  {
-    // TODO Auto-generated method stub
-    return "";
-  }
 }

@@ -50,7 +50,7 @@ public class MyLaboratory extends Laboratory
   /**
    * The maximum size of the pages in the JSON experiments
    */
-  protected int m_maxSizeJson = 1000; 
+  protected int m_maxSizeJson = 500; 
   
   /**
    * The incement step for the page size in the JSON experiments 
@@ -95,6 +95,9 @@ public class MyLaboratory extends Laboratory
     add(eval_b);
     eval_b.add(populateExperiments(new BrowserLiExperiment(), "data/properties/li.csv", new Region().addRange(CornipickleExperiment.SIZE, 0, m_maxSizeBrowser, m_incrementBrowser)));
     */
+    
+    // Stats about lab
+    add(new LabStats(this));
   }
 
   public static void main(String[] args)
@@ -158,11 +161,11 @@ public class MyLaboratory extends Laboratory
         experiments.add(e);
       }
       add(t);
-      String macro_title = "Time per element, property " + property_key;
+      String macro_title = "tpe" + format(property_key);
       if (ref_experiment instanceof BrowserExperiment)
-        macro_title += " (browser)";
+        macro_title += "browser";
       else
-        macro_title += " (browser)";
+        macro_title += "interp";
       add(new RegressionMacro(this, macro_title, t));
       Scatterplot sp = new Scatterplot(t);
       sp.setTitle(title);
@@ -176,5 +179,16 @@ public class MyLaboratory extends Laboratory
       out[n++] = e;
     }
     return out;
+  }
+  
+  protected static String format(String s)
+  {
+	  s = s.replaceAll(" ", "S");
+	  s = s.replaceAll("\\(", "P");
+	  s = s.replaceAll("\\)", "p");
+	  s = s.replaceAll("1", "O");
+	  s = s.replaceAll("2", "W");
+	  s = s.replaceAll("3", "R");
+	  return s;
   }
 }
