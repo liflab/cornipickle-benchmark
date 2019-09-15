@@ -30,7 +30,7 @@ public class JsonLiExperiment extends JsonExperiment
   
   public JsonLiExperiment(String property_name, String property, int num_li)
   {
-    super(property_name);
+    super(property_name, 1);
     setDescription("Evaluates the time required to evaluate an expression, in function of " 
         + "the size of the input document.");
     setInput(SIZE, num_li);
@@ -73,6 +73,8 @@ public class JsonLiExperiment extends JsonExperiment
           child.put("cornipickleid", id++);
           child.put("left", 30);
           child.put("top", 30 * i);
+          child.put("right", 60);
+          child.put("bottom", 30 * (i + 1));
           ul_children.add(child);
         }
         ul.put("children", ul_children);

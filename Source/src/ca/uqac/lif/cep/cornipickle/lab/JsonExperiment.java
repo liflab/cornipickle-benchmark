@@ -28,10 +28,11 @@ import ca.uqac.lif.labpal.ExperimentException;
 
 public abstract class JsonExperiment extends CornipickleExperiment
 {
-  public JsonExperiment(String property_name)
+  public JsonExperiment(String property_name, int num_loops)
   {
     super();
     setInput(PROPERTY_NAME, property_name);
+    setInput(NUM_LOOPS, num_loops);
   }
   
   @Override
@@ -40,20 +41,26 @@ public abstract class JsonExperiment extends CornipickleExperiment
     Interpreter my_int = new Interpreter();
     try
     {
-      my_int.parseProperties(readString(PROPERTY));
+    	String prop = readString(PROPERTY);
+    	prop = prop.replaceAll("\\.", ".\n");
+      my_int.parseProperties(prop);
     }
     catch (ParseException e)
     {
       throw new ExperimentException(e);
     }
-    JsonElement je = getJson();
+    
     long time_start = System.currentTimeMillis();
-    my_int.evaluateAll(je);
-    Map<Interpreter.StatementMetadata,Verdict> verdicts = my_int.getVerdicts();
-    Collection<Verdict> values = verdicts.values();
-    if (values.isEmpty())
+    for (int i = 0; i < readInt(NUM_LOOPS); i++)
     {
-      throw new ExperimentException("The interpreter returned an empty verdict.");
+    	JsonElement je = getJson();
+        my_int.evaluateAll(je);
+        Map<Interpreter.StatementMetadata,Verdict> verdicts = my_int.getVerdicts();
+        Collection<Verdict> values = verdicts.values();
+        if (values.isEmpty())
+        {
+          throw new ExperimentException("The interpreter returned an empty verdict.");
+        }
     }
     long time_end = System.currentTimeMillis();
     write(TIME, time_end - time_start);

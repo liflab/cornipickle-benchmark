@@ -50,12 +50,12 @@ public class MyLaboratory extends Laboratory
   /**
    * The maximum size of the pages in the JSON experiments
    */
-  protected int m_maxSizeJson = 30000; 
+  protected int m_maxSizeJson = 1000; 
   
   /**
    * The incement step for the page size in the JSON experiments 
    */
-  protected int m_incrementJson = 5000;
+  protected int m_incrementJson = 100;
   
   /**
    * The maximum size of the pages in the browser experiments
@@ -89,10 +89,12 @@ public class MyLaboratory extends Laboratory
     eval_g.add(populateExperiments(new JsonDoubleLiExperiment(), "data/properties/temporal.csv", new Region().addRange(CornipickleExperiment.SIZE, 0, m_maxSizeJson, m_incrementJson)));
     
     // Browser experiments
+    /*
     Group eval_b = new Group("Browser experiments");
     eval_b.setDescription("Experiments that measure the round-trip time taken to evaluate various expressions in a browser.");
     add(eval_b);
     eval_b.add(populateExperiments(new BrowserLiExperiment(), "data/properties/li.csv", new Region().addRange(CornipickleExperiment.SIZE, 0, m_maxSizeBrowser, m_incrementBrowser)));
+    */
   }
 
   public static void main(String[] args)
@@ -135,7 +137,7 @@ public class MyLaboratory extends Laboratory
     for (String key : properties.keySet())
     {
       prop_names[i++] = key;
-    }
+    }	
     num_li.add(CornipickleExperiment.PROPERTY, prop_names);
     for (Region r_prop : num_li.all(CornipickleExperiment.PROPERTY))
     {

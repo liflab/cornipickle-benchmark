@@ -28,47 +28,49 @@ import ca.uqac.lif.labpal.ExperimentException;
 
 public class JsonDoubleLiExperiment extends JsonLiExperiment
 {
-  JsonDoubleLiExperiment()
-  {
-    this("", "", 0);
-  }
-  
-  public JsonDoubleLiExperiment(String property_name, String property, int num_li)
-  {
-    super(property_name, property, num_li);
-  }
-  
-  @Override
-  public JsonDoubleLiExperiment newExperiment()
-  {
-    return new JsonDoubleLiExperiment();
-  }
-  
-  @Override
-  public void execute() throws ExperimentException, InterruptedException
-  {
-    Interpreter my_int = new Interpreter();
-    try
-    {
-      my_int.parseProperties(readString(PROPERTY));
-    }
-    catch (ParseException e)
-    {
-      throw new ExperimentException(e);
-    }
-    JsonElement je = getJson();
-    long time_start = System.currentTimeMillis();
-    my_int.evaluateAll(je);
-    Map<Interpreter.StatementMetadata,Verdict> verdicts = my_int.getVerdicts();
-    je = getJson();
-    my_int.evaluateAll(je);
-    verdicts = my_int.getVerdicts();
-    Collection<Verdict> values = verdicts.values();
-    /*if (values.isEmpty())
+	JsonDoubleLiExperiment()
+	{
+		this("", "", 0);
+	}
+
+	public JsonDoubleLiExperiment(String property_name, String property, int num_li)
+	{
+		super(property_name, property, num_li);
+	}
+
+	@Override
+	public JsonDoubleLiExperiment newExperiment()
+	{
+		return new JsonDoubleLiExperiment();
+	}
+
+	@Override
+	public void execute() throws ExperimentException, InterruptedException
+	{
+		Interpreter my_int = new Interpreter();
+		try
+		{
+			String prop = readString(PROPERTY);
+			prop = prop.replaceAll("\\.", ".\n");
+			my_int.parseProperties(prop);
+		}
+		catch (ParseException e)
+		{
+			throw new ExperimentException(e);
+		}
+		JsonElement je = getJson();
+		long time_start = System.currentTimeMillis();
+		my_int.evaluateAll(je);
+		Map<Interpreter.StatementMetadata,Verdict> verdicts = my_int.getVerdicts();
+		je = getJson();
+		my_int.evaluateAll(je);
+		verdicts = my_int.getVerdicts();
+		Collection<Verdict> values = verdicts.values();
+		/*if (values.isEmpty())
     {
       throw new ExperimentException("The interpreter returned an empty verdict.");
     }*/
-    long time_end = System.currentTimeMillis();
-    write(TIME, time_end - time_start);
-  }
+		long time_end = System.currentTimeMillis();
+		write(TIME, time_end - time_start);
+	}
 }

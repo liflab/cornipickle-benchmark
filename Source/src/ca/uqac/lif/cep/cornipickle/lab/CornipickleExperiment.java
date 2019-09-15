@@ -38,9 +38,14 @@ public abstract class CornipickleExperiment extends Experiment implements Clonea
   public static final transient String PROPERTY_NAME = "Property name";
   
   /**
-   * The string repressenting the parameter "property"
+   * The string representing the parameter "property"
    */
   public static final transient String PROPERTY = "Property";
+  
+  /**
+   * The string representing the parameter "number of events"
+   */
+  public static final transient String NUM_LOOPS = "Number of events";
   
   public CornipickleExperiment()
   {
@@ -48,6 +53,7 @@ public abstract class CornipickleExperiment extends Experiment implements Clonea
     describe(TIME, "The time taken to evaluate the property in milliseconds");
     describe(PROPERTY_NAME, "The name of the property that is being evaluated");
     describe(PROPERTY, "The Cornipickle expression that is being evaluated");
+    describe(NUM_LOOPS, "The number of successive events evaluated");
     addKeyToHide(PROPERTY);
     describe(SIZE, "The size of the page (in number of elements)");
   }
